@@ -1,4 +1,4 @@
-# EasAPI - APIs made easy
+# EaseAPI - APIs made easy
 ---
 ## Why are APIs so Important? 
 
@@ -10,11 +10,11 @@ The client/server communications mechanism in the age of mobile is APIs. In orde
 ***(Learn more on APIs [here](https://youtu.be/s7wmiS2mSXY))***
 
 ---
-## What we will deliver in EasAPI
+## What we will deliver in EaseAPI
 
 #### API Creation Tool
 
-We provide an easy way of creating high-quality APIs, with a wide range of customizable features presented on a easy-to-use User Interface. APIs being one of the most crucial part of application development as explained earlier, needs to be well structured, secured, fully scalabale and customizable in future - all of which will be properly taken care of by *EasAPI- API Creation Tool*. 
+We provide an easy way of creating high-quality APIs, with a wide range of customizable features presented on a easy-to-use User Interface. APIs being one of the most crucial part of application development as explained earlier, needs to be well structured, secured, fully scalabale and customizable in future - all of which will be properly taken care of by *EaseAPI- API Creation Tool*. 
 
 ##### How will this work: 
 We will provide a well-designed skeleton for the APIs providing some minor logic according to the choice of the user. For example 
@@ -24,7 +24,7 @@ We will provide a well-designed skeleton for the APIs providing some minor logic
 * Have Authentication and Authorisation integrated.
 * Have Database connected that will open a whole new world of choices.
 
-After the skeleton code has been generated, it will add some basic logic and then allow the user to put in the rest of inctricate logic to the code. The API will be hosted in the EasAPI server, and the url to the API with documentation will be available, with an option to share it on the sharing portal.
+After the skeleton code has been generated, it will add some basic logic and then allow the user to put in the rest of inctricate logic to the code. The API will be hosted in the EaseAPI server, and the url to the API with documentation will be available, with an option to share it on the sharing portal.
 
 #### API Sharing Portal
 
@@ -33,7 +33,7 @@ Along with the API creation Tool, we also provide an API Sharing Portal which wi
 ---
 ## How will this Impact the World
 
-##### *This Project exclusively targets the world of developers. We make the life of developers much easier by providing them with a platform(API Creation Tool) where they can create quality APIs with ease. We connect developers around the world by giving them access to a variety of other APIs made by other developers, and allowing them to review the APIs and help make it better. Thus the developers will have much less to worry about implementing the backend services that gives life to their applications and concentrate more on its looks/presentation and the basic logic of the backend. THe user interface will be made keeping in mind that even non-developers who wish to create their application can gain benefit from EasAPI.*
+##### *This Project exclusively targets the world of developers. We make the life of developers much easier by providing them with a platform(API Creation Tool) where they can create quality APIs with ease. We connect developers around the world by giving them access to a variety of other APIs made by other developers, and allowing them to review the APIs and help make it better. Thus the developers will have much less to worry about implementing the backend services that gives life to their applications and concentrate more on its looks/presentation and the basic logic of the backend. THe user interface will be made keeping in mind that even non-developers who wish to create their application can gain benefit from EaseAPI.*
 
 ---
 ## Project Head
