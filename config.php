@@ -5,8 +5,8 @@ require_once("global.php");
 // Mysql credentials and details
 
 $host = 'localhost';
-$username = 'root';
-$password = 'Deep@0526';
+$username = '';
+$password = '';
 $db = 'EaseAPI';
 
 // Connect to mysql
