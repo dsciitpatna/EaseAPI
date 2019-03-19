@@ -28,23 +28,24 @@ class Relation //extends AnotherClass
 	/**
   	  * MySQL object - $conn - variable containing conection details
  	  * @var MySQLi	Object
-  	  */	
+  	  */
 	private $conn;
-	
 
-/** ==============================================
+
+	/** ==============================================
 				ACCESSORS AND MODIFIERS
 	==============================================*/
 
-	function change_loggedInUser($id){
+	function change_loggedInUser($id)
+	{
 		$user = new User($this->conn);
 		$user->arrayToUser($user->getUser($id));
 		$this->loggedInUser = $user;
 		$this->followers = $this->getAllFollowers();
 		$this->following = $this->getAllFollowing();
-	} 
+	}
 
-/** ==============================================
+	/** ==============================================
 			CONSTRUCTORS AND DESTRUCTORS
 	==============================================*/
 
@@ -53,10 +54,10 @@ class Relation //extends AnotherClass
 		$this->loggedInUser = $loggedInUser;
 		$this->conn = $conn;
 		$this->followers = null;
-		$this->following = null;	
+		$this->following = null;
 	}
 
-/** ==============================================
+	/** ==============================================
 					METHODS
 	==============================================*/
 
@@ -66,35 +67,35 @@ class Relation //extends AnotherClass
 	  */
 	function getAllFollowersOfLoggedIn()
 	{
-		$sql = "SELECT user2 FROM relation WHERE user1 = '".$this->loggedInUser->getUid(). "'";
+		$sql = "SELECT user2 FROM relation WHERE user1 = '" . $this->loggedInUser->getUid() . "'";
 
 		$result = $this->conn->query($sql);
-        if(!$result || $result->num_rows<=0){
-            $errorH = alog("getuser error: numrows : ". $result->num_rows ."error:". $this->conn->error);
-            $error = "Error in displaying result for given User ID. Err no: #".$errorH;
-            error_log("Error: ".$errorH .": ". $result->num_rows ." - ". $this->conn->error);
-            $status = 501;
-            $msg = $error;
-        } else {
-        	$res = array();
-        	while ($user_ids = $result->fetch_assoc()) {
-        		$status = 200;
-        		$user = new User($this->conn);
-        		$user->getUser($user_ids['user2']);
+		if (!$result || $result->num_rows <= 0) {
+			$errorH = alog("getuser error: numrows : " . $result->num_rows . "error:" . $this->conn->error);
+			$error = "Error in displaying result for given User ID. Err no: #" . $errorH;
+			error_log("Error: " . $errorH . ": " . $result->num_rows . " - " . $this->conn->error);
+			$status = 501;
+			$msg = $error;
+		} else {
+			$res = array();
+			while ($user_ids = $result->fetch_assoc()) {
+				$status = 200;
+				$user = new User($this->conn);
+				$user->getUser($user_ids['user2']);
 
-        		$res[] = $user;
-        	}
-        	$result->free();
-        }
+				$res[] = $user;
+			}
+			$result->free();
+		}
 
-        $ret = array();
-        $ret['status'] = $status;
-        if($status==200){
-        	$ret['result'] = $res;
-        } else {
-        	$ret['message'] = $msg;
-        }
-        return $ret;		
+		$ret = array();
+		$ret['status'] = $status;
+		if ($status == 200) {
+			$ret['result'] = $res;
+		} else {
+			$ret['message'] = $msg;
+		}
+		return $ret;
 	}
 
 	/**
@@ -103,35 +104,35 @@ class Relation //extends AnotherClass
 	  */
 	function getAllUsersFollowedByLoggedIn()
 	{
-		$sql = "SELECT user1 FROM relation WHERE user2 = '".$this->loggedInUser->getUid(). "'";
+		$sql = "SELECT user1 FROM relation WHERE user2 = '" . $this->loggedInUser->getUid() . "'";
 
 		$result = $this->conn->query($sql);
-        if(!$result || $result->num_rows<=0){
-            $errorH = alog("getuser error: numrows : ". $result->num_rows ."error:". $this->conn->error);
-            $error = "Error in displaying result for given User ID. Err no: #".$errorH;
-            error_log("Error: ".$errorH .": ". $result->num_rows ." - ". $this->conn->error);
-            $status = 501;
-            $msg = $error;
-        } else {
-        	$res = array();
-        	while ($user_ids = $result->fetch_assoc()) {
-        		$status = 200;
-        		$user = new User($this->conn);
-        		$user->getUser($user_ids['user1']);
+		if (!$result || $result->num_rows <= 0) {
+			$errorH = alog("getuser error: numrows : " . $result->num_rows . "error:" . $this->conn->error);
+			$error = "Error in displaying result for given User ID. Err no: #" . $errorH;
+			error_log("Error: " . $errorH . ": " . $result->num_rows . " - " . $this->conn->error);
+			$status = 501;
+			$msg = $error;
+		} else {
+			$res = array();
+			while ($user_ids = $result->fetch_assoc()) {
+				$status = 200;
+				$user = new User($this->conn);
+				$user->getUser($user_ids['user1']);
 
-        		$res[] = $user;
-        	}
-        	$result->free();
-        }
+				$res[] = $user;
+			}
+			$result->free();
+		}
 
-        $ret = array();
-        $ret['status'] = $status;
-        if($status==200){
-        	$ret['result'] = $res;
-        } else {
-        	$ret['message'] = $msg;
-        }
-        return $ret;		
+		$ret = array();
+		$ret['status'] = $status;
+		if ($status == 200) {
+			$ret['result'] = $res;
+		} else {
+			$ret['message'] = $msg;
+		}
+		return $ret;
 	}
 
 	/**
@@ -143,7 +144,15 @@ class Relation //extends AnotherClass
 	  */
 	function checkFollowerOf(User $user)
 	{
-		
+		$strId = (string)$this->loggedInUser->getUid() . "_" . (string)$user->getUid();
+		$sql = "SELECT * FROM relation WHERE str_id ='" . $strId . "'";
+		$result = $this->conn->query($sql);
+		if ($result == false) {
+			return -1;
+		} else if ($result->num_rows == 0) {
+			return 0;
+		}
+		return 1;
 	}
 
 	/**
@@ -155,9 +164,7 @@ class Relation //extends AnotherClass
 	  * 		['message'] : Message corresponding the status code 
 	  */
 	function addFollowerOf(User $user)
-	{
-		
-	}
+	{ }
 
 	/**
 	  *	removes the user from 'following' list of loggedin User (Logged in users stops following this user (User $user))
@@ -168,9 +175,7 @@ class Relation //extends AnotherClass
 	  * 		['message'] : Message corresponding the status code 
 	  */
 	function removeFollowerOf(User $user)
-	{
-
-	}
+	{ }
 
 	/**
 	  *	check if the user is being followed by loggedin User (Logged in users starts following this user (User $user))
@@ -180,9 +185,5 @@ class Relation //extends AnotherClass
 	  *		 	 0 : Logged In user is not followed by $user
 	  */
 	function checkFollowedBy(User $user)
-	{
-		
-	}	
-
-	
+	{ }
 }
