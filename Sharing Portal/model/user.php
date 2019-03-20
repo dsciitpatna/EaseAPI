@@ -174,14 +174,14 @@ class User //extends AnotherClass
             	. "VALUES "
             	. "( '" .$this->name."', '".$this->email."', '".sha1($password)."', '".$this->username."', ".$this->access_level. " )";
 
-        	$resultObj = $dbCon->query($sql);
+        	$resultObj = $this->conn->->query($sql);
     
     		$ret = array();
-    		if ($dbCon->affected_rows > 0) {
+    		if ($resultObj->affected_rows > 0) {
     		 	$status = 200;
     		 	$msg =  "Saved to DB. Sending Verification"; 
-    		} elseif ($dbCon->affected_rows==-1) {
-     			if ($dbCon->errno==1062) {
+    		} elseif ($resultObj->affected_rows==-1) {
+     			if ($resultObj->errno==1062) {
         			$status = 401;
         			$msg = "Duplicate entry! Email Id already in use...";
       			} else {
